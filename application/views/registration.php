@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="container">
 		<div class="col-md-6">
 		<div id="message"></div>
-			<?php echo form_open('user/regis',array('id' => 'user_details' ));?>
+			<?php echo form_open('user/regis');?>
 			
 			<div class="form-group">
 				<label>First_name</label>

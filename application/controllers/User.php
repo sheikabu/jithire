@@ -17,7 +17,7 @@ class User extends CI_Controller {
 		$this->load->view('login');
 		$this->load->view('common/footer');
 	}
-	public function check() //login_check
+	public function login_check() //login_check
 	{
 		
 		 		$user_login=array(
@@ -31,13 +31,17 @@ class User extends CI_Controller {
 			      		'email'=>$data,
 			      		'logged_in'=>true
 			      		);
-			      	//$this->session->set_userdata($user_data);
-			      	//$this->session->set_flashdata('user_loggedin','you are now loggedin');
+			      	$this->session->set_userdata('id',$data['id']);
+			        $this->session->set_userdata('email',$data['email']);
+			        $this->session->set_userdata('first_name',$data['first_name']);
+			        $this->session->set_userdata('last_name',$data['last_name']);
+			        $this->session->set_userdata('role',$data['role']);
+			      	$this->session->set_flashdata('user_loggedin','you are now loggedin');
 			        $this->load->view('user_profile.php');
 			      }
 			      else{
-			      	$this->session->set_flashdata('login_failed','login is invalid');
-			      	redirect('user');
+			      	//$this->session->set_flashdata('login_failed','login is invalid');
+			      	 redirect('user');
 			      }
 		 		$info['message']="valid success";
 		
@@ -53,26 +57,25 @@ class User extends CI_Controller {
 
 	public function registration() //login_check
 	{
-		$data['registration_data']='registration';
-		$login_data=$this->load->view('registration',$data);
+		
+		$this->load->view('common/header');
+		$this->load->view('login/');
+		$this->load->view('common/footer');
 		
 	}
 
-	public function regis() //login_check
+	public function register_check() //login_check
 	{
-					$this->form_validation->set_rules('first_name','First_name','trim|required'); 
-		 			$this->form_validation->set_rules('last_name','Last_name','trim|required');
-		 			$this->form_validation->set_rules('email','Email','trim|required');
-					$this->form_validation->set_rules('password','Password','trim|required');
+				/*	
 					$this->form_validation->set_rules('confirm_password','Confirm_password','trim|required|matches[password]'); 
 
 					 if ($this->form_validation->run() == FALSE)
                 {
-                        $this->load->view('registration');
+                        redirect('user');
                 }
                 else
-                {
-                       $reg=array(
+                {*/
+                       $register_details=array(
 		 			
 		 			'first_name' => $this->input->post('first_name'), 
 		 			'last_name' => $this->input->post('last_name'), 
@@ -83,10 +86,13 @@ class User extends CI_Controller {
 
 		 			);
 		
-		 		$this->valid_m->regis_insert($reg);
-		 		$info['message']="valid success";
-		 		redirect('user_profile');
-                }
+		 		$this->valid_m->register_insert($register_details);
+		 		$info['message']="registration successful,please login your account<a href='<?php echo base_url('user'); ?>'</a>";
+		 		//$this->load->user;
+		 		$this->load->view('login.php',$info);
+		 		//redirect('same_controller/index', 'refresh');
+		 		//redirect('user_profile');
+               // }
 	}
 	public function registration_company() //login_check
 	{

@@ -25,9 +25,9 @@ class Valid_m extends CI_Model{
 	  }
 	}
 	
-	public function  regis_insert($reg){ //comments
+	public function  register_insert($register_details){ //comments
 		
-		$this->db->insert('jh_registration',$reg);
+		$this->db->insert('jh_registration',$register_details);
 		return TRUE;
 	}
 	public function  company_registration_insert($company_details){ //comments

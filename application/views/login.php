@@ -17,8 +17,8 @@
         <!-- =============== Start: Sign In Form =================== -->
                         <div class="sign-in-wrap col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
                             <div id="sign-in-form" class="sign-form" tabindex="-1" role="dialog">
-                                <form method="post" class="single-form" action="">
-                                     <div class="col-xs-12">
+                                <form method="post" class="single-form" action="<?php echo site_url('user/login_check') ?>">
+                            		<div class="col-xs-12">
                                         <!-- Email -->
                                         <input name="email" class="contact-email form-control" type="email" placeholder="Email*" required="">
                                     </div>
@@ -134,24 +134,24 @@
     </section>
 
     <!-- Footer -->
-    
+    <?php print_r($message); ?>
 <!-- Register modal start -->
             <div class="sign-form modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+                    <h4 class="modal-title" id="myModalLabel">Sign Up</h4><h3><?php echo site_url('user/login_check') ?></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     
                   </div>
                   <div class="modal-body">
-                   <form method="post" class="single-form" action="">
+                   <form method="post" class="single-form" action="<?php echo base_url('index.php/user/register_check') ?>">
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn active">
-                            <input type="radio" name='tempUnit' id="celcius" value="celcius" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
+                            <input type="radio" name='role' id="celcius" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
                           </label>
                           <label class="btn">
-                            <input type="radio" name='tempUnit' id="fahrenheit" value="fahrenheit"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
+                            <input type="radio" name='role' id="fahrenheit" value="employer"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
                           </label>
                         </div> 
                         <div class="col-xs-12 mBot-10 mBot-10 text-right">
@@ -160,15 +160,15 @@
                           </div> 
                         <div class="col-xs-12">
                             <!-- First Name -->
-                            <input name="text" class="contact-first-name form-control" placeholder="First Name*" required="" type="text">
+                            <input name="first_name" class="contact-first-name form-control" placeholder="First Name*" required="" type="text">
                         </div>
                         <div class="col-xs-12">
                             <!-- Last Name -->
-                            <input name="text" class="contact-last-name form-control" placeholder="Middle Name*" required="" type="text">
+                            <input name="middle_name" class="contact-last-name form-control" placeholder="Middle Name*" required="" type="text">
                         </div>
                         <div class="col-xs-12">
                             <!-- Last Name -->
-                            <input name="text" class="contact-last-name form-control" placeholder="Last Name*" required="" type="text">
+                            <input name="last_name" class="contact-last-name form-control" placeholder="Last Name*" required="" type="text">
                         </div>
                         <div class="col-xs-12">
                             <!-- Email -->
@@ -180,11 +180,15 @@
                         </div>
                         <div class="col-xs-12">
                             <!-- Subject -->
-                            <input name="password" class="contact-cmp-password form-control" placeholder="Confirm Password" type="pass">
+                            <input name="confirm_password" class="contact-cmp-password form-control" placeholder="Confirm Password" type="pass">
+                        </div>
+                        <div class="col-xs-12">
+                            <!-- Subject -->
+                            <input name="status" type="hidden" value="active">
                         </div>
                         <div class="col-xs-12">
                             <div class="checkbox">
-                                <input id="agreement" type="checkbox">
+                                <input name="agreement" id="agreement" type="checkbox">
                                 <label for="agreement">I agree to Your Terms of Service </label>
                             </div>
                         </div>
@@ -193,6 +197,7 @@
                         <div class="btn-form text-center col-xs-12">
                             <button class="btn btn-fill">Sign Up</button>
                         </div>
+
                     </form>
                   </div>
                   <!-- <div class="modal-footer hidden">
