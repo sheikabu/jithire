@@ -79,7 +79,7 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => 'inapp',
 	'database' => 'jithire',
-	'dbdriver' => 'mysql',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
