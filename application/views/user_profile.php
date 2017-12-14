@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+
+<?php
+include('common/header.php');
+
+ ?>
+
 <?php
 $email=$this->session->userdata('email');
 
@@ -10,21 +16,18 @@ if(!$email){
 }
 
  ?>
-<?php
-include('common/header.php');
-
- ?>
 
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
+
+<div class="sign-in-wrap col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1 mx-auto">
+  <div class="sign-form">
+    <div class="single-form">
 
       <table class="table table-bordered table-striped">
 
 
         <tr>
-          <th colspan="2"><h4 class="text-center">User Info</h3></th>
+          <th colspan="2"><h4 class="text-center">User info</h3></th>
 
         </tr>
           <tr>

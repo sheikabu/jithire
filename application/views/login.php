@@ -4,6 +4,7 @@
       <div class="container">
         <div class="row">
         <div class="intro-text spot-view col-md-6 text-left">
+
           
           <!-- <div class="intro-lead-in">Just In Time Hiring!</div>
           <div class="intro-heading text-uppercase">Get a job in <span>24</span> hours</div>
@@ -17,7 +18,9 @@
         <!-- =============== Start: Sign In Form =================== -->
                         <div class="sign-in-wrap col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
                             <div id="sign-in-form" class="sign-form" tabindex="-1" role="dialog">
-                                <form method="post" class="single-form" action="<?php echo site_url('user/login_check') ?>">
+                                <form method="post" class="single-form" action="<?php echo site_url('user/login_check') ?>"><?php if ( $this->session->flashdata('message') ) : ?>
+                   <p><?php echo $this->session->flashdata('message'); ?></p>
+                            <?php endif; ?>
                             		<div class="col-xs-12">
                                         <!-- Email -->
                                         <input name="email" class="contact-email form-control" type="email" placeholder="Email*" required="">
@@ -134,18 +137,19 @@
     </section>
 
     <!-- Footer -->
-    <?php print_r($message); ?>
+    
 <!-- Register modal start -->
             <div class="sign-form modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Sign Up</h4><h3><?php echo site_url('user/login_check') ?></h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     
                   </div>
                   <div class="modal-body">
-                   <form method="post" class="single-form" action="<?php echo base_url('index.php/user/register_check') ?>">
+                   <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
+                   
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn active">
                             <input type="radio" name='role' id="celcius" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
@@ -164,7 +168,7 @@
                         </div>
                         <div class="col-xs-12">
                             <!-- Last Name -->
-                            <input name="middle_name" class="contact-last-name form-control" placeholder="Middle Name*" required="" type="text">
+                            <input name="middle_name" class="contact-last-name form-control" placeholder="Middle Name" type="text">
                         </div>
                         <div class="col-xs-12">
                             <!-- Last Name -->
@@ -188,7 +192,7 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="checkbox">
-                                <input name="agreement" id="agreement" type="checkbox">
+                                <input name="agreement" id="agreement" type="checkbox" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}">
                                 <label for="agreement">I agree to Your Terms of Service </label>
                             </div>
                         </div>

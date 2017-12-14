@@ -66,15 +66,19 @@ class User extends CI_Controller {
 
 	public function register_check() //login_check
 	{
-				/*	
+
+					$this->form_validation->set_rules('password','Password','trim|required|matches[password]'); 
 					$this->form_validation->set_rules('confirm_password','Confirm_password','trim|required|matches[password]'); 
 
 					 if ($this->form_validation->run() == FALSE)
                 {
+                	$message = 'sorry mismatch password';
+				$this->session->set_flashdata('message', $message);
+
                         redirect('user');
                 }
                 else
-                {*/
+                {
                        $register_details=array(
 		 			
 		 			'first_name' => $this->input->post('first_name'), 
@@ -87,12 +91,17 @@ class User extends CI_Controller {
 		 			);
 		
 		 		$this->valid_m->register_insert($register_details);
-		 		$info['message']="registration successful,please login your account<a href='<?php echo base_url('user'); ?>'</a>";
+		 		$link = anchor('user/index', 'login');
+
+				$message = 'Thank You for registering with Jithire' .' '. $link .' '. 'please login your account!';
+				$this->session->set_flashdata('message', $message);
 		 		//$this->load->user;
-		 		$this->load->view('login.php',$info);
+		 		$this->index();
+		 		//$this->load->user;
+		 		//$this->load->view('login.php',$info);
 		 		//redirect('same_controller/index', 'refresh');
 		 		//redirect('user_profile');
-               // }
+                }
 	}
 	public function registration_company() //login_check
 	{
