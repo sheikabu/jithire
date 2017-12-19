@@ -24,6 +24,47 @@ class Valid_m extends CI_Model{
 	    return false;
 	  }
 	}
+	public function email_check($email){
+
+	  $this->db->select('*');
+	  $this->db->from('jh_registration');
+	  $this->db->where('email',$email);
+	  $query=$this->db->get();
+
+	  if($query->num_rows()>0){
+	    return false;
+	  }else{
+	    return true;
+	  }
+
+	}
+
+	public function forgot_email_check($email){
+
+	  $this->db->select('*');
+	  $this->db->from('jh_registration');
+	  $this->db->where('email',$email);
+	  $query=$this->db->get();
+
+	  if($query->num_rows()>0){
+	    return true;
+	  }else{
+	    return false;
+	  }
+
+	}
+	public function forgot_password_check($password,$email_det){
+		$field = array(
+		'password'=>$this->input->post('$password'));
+		$this->db->where('email', $email_det);
+		$this->db->update('jh_registration', $field);
+		//echo $this->db->last_query();extit;
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	public function  register_insert($register_details){ //comments
 		

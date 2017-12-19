@@ -35,6 +35,39 @@ class Valid_m extends CI_Model{
 		$this->db->insert('jh_company_details',$company_details);
 		return TRUE;
 	}
-	
+	// user_table display in admin page
+	public function getUserTables($userdata){
+
+	  $this->db->select("first_name,last_name,email,role,status");
+	  $this->db->from('jh_registration');
+	  $this->db->where('role',$userdata);
+	  if($query=$this->db->get())
+	  {
+	      return $query->result();
+	     
+	  }
+	  else{
+	    return false;
+	  }
+	 // return $query->result();
+ 	}
+ 	// company_table display in admin page
+ 	public function getCompanyTables($userdata){
+	  
+	 
+	  $this->db->select("first_name,last_name,email,role,status");
+	  $this->db->from('jh_registration');
+	  $this->db->where('role',$userdata);
+	  if($query=$this->db->get())
+	  {
+	      return $query->result();
+	     
+	  }
+	  else{
+	    return false;
+	  }
+ 	}
+
 }
+
 ?>

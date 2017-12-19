@@ -18,6 +18,16 @@ class User extends CI_Controller {
 		$this->load->view('login');
 		$this->load->view('common/footer');
 	}
+
+	public function dashboard()
+	{
+		
+		$this->load->view('common/header_inner');
+		$this->load->view('common/leftmenu');
+		$this->load->view('dashboard');
+		$this->load->view('common/footer_inner');
+	}
+
 	public function check() //login_check
 	{		
 
@@ -33,7 +43,7 @@ class User extends CI_Controller {
 			      		'logged_in'=>true
 			      		);	
 			      	$this->session->set_userdata($user_data);
-			        $this->load->view('dashboard.php');
+			        $this->dashboard();
 			      }
 			      else{			       
 			      	$this->session->set_flashdata('loginfailed','Please try again!');
@@ -51,6 +61,47 @@ class User extends CI_Controller {
       	redirect('user');
 			
 	}
+
+	// admin user details display --> model->valid_m->39lines
+	public function user_dashboard($data)
+	{
+		
+		$this->load->view('common/header_inner');
+		$this->load->view('common/leftmenu');
+		$this->load->view('user_tables.php', $data);
+		$this->load->view('common/footer_inner');
+	}
+	public function company_dashboard($data)
+	{
+		
+		$this->load->view('common/header_inner');
+		$this->load->view('common/leftmenu');
+		$this->load->view('company_tables.php', $data);
+		$this->load->view('common/footer_inner');
+	}
+	public function user_tables() 
+	{
+		$userdata='candidate';
+		$query = $this->valid_m->getUserTables($userdata);
+		$data['User_tables'] = null;
+		if($query){
+		   $data['User_tables'] =  $query;
+		  $this->user_dashboard($data);
+		  }
+	} 
+
+	// admin company details display
+	public function company_tables() 
+	{
+		$userdata='company';
+		$query = $this->valid_m->getCompanyTables($userdata);
+		 $data['company_tables'] = null;
+		if($query){
+		   $data['Company_tables'] =  $query;
+		    $this->company_dashboard($data);
+
+		  }
+	} 
 
 
 }

@@ -12,7 +12,7 @@
             <ul class="timeline">
               <li>
                 <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src=""assets/img/about/1.jpg" alt="">
+                  <img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -54,7 +54,7 @@
               </li>
               <li class="timeline-inverted">
                 <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="assets/img/img/about/4.jpg" alt="">
+                  <img class="rounded-circle img-fluid" src="<?php echo base_url(); ?>assets/img/about/4.jpg" alt="">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">

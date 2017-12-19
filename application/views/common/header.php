@@ -32,7 +32,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">jithire</a>
+        <a class="navbar-brand js-scroll-trigger" href="<?php echo site_url() ?>user">jithire</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -50,13 +50,13 @@
               <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="about.html">About Us</a>
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/about">About Us</a>
             </li>
-           <!--  <li class="nav-item">
+            <!--  <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="contact.html">Contact Us</a>
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/contact">Contact Us</a>
             </li>
           </ul>
         </div>
