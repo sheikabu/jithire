@@ -72,6 +72,57 @@ class User extends CI_Controller {
 		$this->load->view('common/footer');
 		
 	}
+	public function user_insert() //login_check
+	{
+				$industr=$this->input->post('industry[]');
+				$rol=$this->input->post('role[]');
+				$skil=$this->input->post('skill[]');
+				$compan=$this->input->post('company[]');
+				$preferred_location=$this->input->post('prefered_location');
+
+    
+				$industry=implode(",", $industr);    //prints 1, 2, 3
+				$role=implode(",", $rol); 
+				$skill=implode(",", $skil); 
+				$company=implode(",", $compan); 
+    			//print join(',', $stuff);        //prints 1, 2, 3
+
+					
+                    $user_details=array(
+		 			
+		 			'first_name' => $this->input->post('first_name'), 
+		 			'middle_name' => $this->input->post('middle_name'), 
+		 			'last_name' => $this->input->post('last_name'), 
+		 			'email' => $this->input->post('email'), 
+					'pancard' => $this->input->post('pancard'),
+					'mobile_number' => $this->input->post('mobile_number'),
+					'dob' => $this->input->post('dob'),
+					'total_experience' => $this->input->post('total_experience'),
+					'industry' => $this->$industry,
+					'role' => $this->$role,
+					'skill' => $this->$skill,
+					'preferred_location' => $this->$prefered_location,
+					'minimum_salary' => $this->input->post('minimum_salary'),
+					'company' => $this->input->post($company),
+					'previous_experience' => $this->input->post('previous_experience'),
+					'user_id' => $this->input->post('user_id')
+
+		 			);
+					// print_r ($user_details['industry']);
+				    $this->valid_m->user_insert($user_details);
+		 			
+
+				
+		 		
+		 		//$this->load->user;
+		 		//$this->load->view('login.php',$info);
+		 		//redirect('same_controller/index', 'refresh');
+		 		//redirect('user_profile');
+                
+	}
+
+
+
 	public function forgot() 
 	{
 		

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php
 $email=$this->session->userdata('email');
 
+
 if(!$email){
 
   redirect('user');
@@ -15,14 +16,30 @@ if(!$email){
 	<div class="container">
 		<div class="col-md-6">
 		<div id="message"></div>
-			<?php echo form_open('user/regis');?>
+			<?php echo form_open('user/user_insert');?>
+			 <div class="form-group">
+                <!-- First Name --><label>First Name</label>
+                <input name="first_name" class="form-control" placeholder="First Name*" type="text">
+            </div>
+           <div class="form-group">
+                <!-- Last Name --><label>Middle Name</label>
+                <input name="middle_name" class="form-control" placeholder="Middle Name" type="text">
+            </div>
+            <div class="form-group">
+                <!-- Last Name --><label>Last Name</label>
+                <input name="last_name" class="form-control" placeholder="Last Name*" type="text">
+            </div>
+            <div class="form-group">
+                <!-- Email --><label>Email</label>
+                <input name="email" class="form-control" placeholder="Email*" type="email">
+            </div>
 			<div class="form-group">
 				<label>Pancard</label>
 				<input type="text" name="pancard" class="form-control" placeholder="Pancard"/>
 			</div>
 			<div class="form-group">
 				<label>Mobile_number</label>
-				<input type="text" name="mobile_number" class="form-control" placeholder="Mobile_number"/>
+				<input type="text" name="mobile_number" class="form-control" placeholder="Mobile_number*"/>
 			</div>
 			<div class="form-group">
 				<label>DOB</label>
@@ -34,8 +51,10 @@ if(!$email){
 			</div>
 			<div class="form-group">
 				<label>Industry</label>
-				<select name="industry" id="industry" class="form-control input-lg"  placeholder="Industry">
+				<select name="industry[]" id="industry" class="form-control input-lg"  placeholder="Industry*" multiple>
     			<option value="">Select industry</option>
+    			<option value="1">IT</option>
+    			<option value="2">ECE</option>
 				</select>
 				
 			</div>
@@ -43,14 +62,18 @@ if(!$email){
 			<div class="form-group">
 				<label>Role</label>
 				
-				<select name="role" id="role" class="form-control input-lg" placeholder="Role">
+				<select name="role[]" id="role" class="form-control input-lg" placeholder="Role*" multiple>
 			    <option value="">Select role</option>
+			    <option value="1">software</option>
+			    <option value="2">hardware</option>
 			    </select>
 			</div>
 			<div class="form-group">
 				<label>Skill</label>
-				<select name="skill" id="skill" class="form-control input-lg">
+				<select name="skill[]" id="skill" class="form-control input-lg" placeholder="skill*" multiple>
 			    <option value="">Select skill</option>
+			    <option value="1">php</option>
+			    <option value="2">java</option>
 			    </select>
 			</div>
 			<div class="form-group">
@@ -63,7 +86,11 @@ if(!$email){
 			</div>
 			<div class="form-group">
 				<label>Company</label>
-				<input type="text" name="Company" class="form-control" placeholder="Company" />
+				<div class="form-group" id='duplicater'>
+				
+				<input type="text" name="company[]" class="form-control" placeholder="Company" />
+				<input type="button" name="addmore" value="Add More" class='button small white' onclick='duplicate();'/>
+                 </div>    
 			</div>
 			<div class="form-group">
 				<label>Previous_experience</label>
@@ -71,73 +98,35 @@ if(!$email){
 			</div>
 			<div class="form-group">
 				<label>User_id</label>
-				<input type="text" name="user_id" class="form-control" placeholder="user_id" value="<?php print_r($this->session->userdata('id')) ;  ?>" disabled/>
+				<input type="text" name="user_id" class="form-control" value='<?php echo($this->session->userdata("id")) ;  ?>' />
 			</div>
 			
-			<button type="submit" class="btn btn-primary" onclick="validation_c()">submit</button>
-			<a href="<?php echo base_url('user/registration'); ?>"> </a>
-				
+			<button type="submit" class="btn btn-primary" >submit</button>
+		
 		</div>
 	</div>
 
 </div>
-	<script src="assets/jquery/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+ <script src="assets/jquery/jquery.min.js"></script>
+<script>
+ var i = 0;
+ var original = document.getElementById('duplicater');
+
+  function duplicate(){ 
+    var clone = original.cloneNode(true); // "deep" clone
+    i = ++i;
+    clone.id = "duplicetor"+ i; // there can only be one element with  an ID
+    original.parentNode.appendChild(clone);
+    clearCloneForm(clone.id);
+  }
+
+  function clearCloneForm(id){ 
+    var divId = '#'+id;
+    $(divId).find("input[type^='text'], input[type^='date']").each(function() {
+        $(this).val('');
+    }); 
+  }
+</script>
+	
 
  	
-<script>
-$(document).ready(function(){
- load_json_data('industry');
-
- function load_json_data(id, parent_id)
- {
-  var html_code = '';
-  $.getJSON('assets/country_state_city.json', function(data){
-
-   html_code += '<option value="">Select '+id+'</option>';
-   $.each(data, function(key, value){
-    if(id == 'industry')
-    {
-     if(value.parent_id == '0')
-     {
-      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-     }
-    }
-    else
-    {
-     if(value.parent_id == parent_id)
-     {
-      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-     }
-    }
-   });
-   $('#'+id).html(html_code);
-  });
-
- }
-
- $(document).on('change', '#industry', function(){
-  var industry_id = $(this).val();
-  if(industry_id != '')
-  {
-   load_json_data('role', industry_id);
-  }
-  else
-  {
-   $('#role').html('<option value="">Select role</option>');
-   $('#skill').html('<option value="">Select skill</option>');
-  }
- });
- $(document).on('change', '#role', function(){
-  var role_id = $(this).val();
-  if(role_id != '')
-  {
-   load_json_data('skill', role_id);
-  }
-  else
-  {
-   $('#skill').html('<option value="">Select skill</option>');
-  }
- });
-});
-</script>

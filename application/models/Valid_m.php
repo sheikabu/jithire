@@ -71,6 +71,11 @@ class Valid_m extends CI_Model{
 		$this->db->insert('jh_registration',$register_details);
 		return TRUE;
 	}
+	public function  user_insert($user_details){ //comments
+		
+		$this->db->insert('jh_user_profile',$user_details);
+		return TRUE;
+	}
 	public function  company_registration_insert($company_details){ //comments
 		
 		$this->db->insert('jh_company_details',$company_details);

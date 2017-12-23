@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Dropdown.js - a lightweight dropdown of jQuery plugins </title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script type="text/javascript" src="./mock.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="./jquery.dropdown.min.css">
+  <script src="./jquery.dropdown.js"></script>
+  <style>
+    body {
+      width: 80%;
+      margin: 0 auto;
+      padding-bottom: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="">
+
+
+    <h2> Demo</h2>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-info">Industry</div>
+        <br>
+        <div class="dropdown-mul-1">
+          <select style="display:none" name="" id="" multiple placeholder="Industry"> </select>
+        </div>
+      </div>
+      <div class="col-sm-4" style="margin-top:40px;">
+        <button class="btn btn-primary btn-sm" id="update">update</button>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-info">Roles</div>
+        <br>
+        <div class="dropdown-mul-2">
+          <select style="display:none" name="" id="mul-2" multiple placeholder="Roles">
+            <option value="1" selected>Software Eng</option>
+            <option value="2">Tester</option>
+            <option value="3" selected>Project Manager</option>
+            <option value="5">Senior Developer</option>
+            <option value="6">Freshers</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-info">Skill</div>
+        <br>
+        <div class="dropdown-sin-1">
+          <select style="display:none" placeholder="Skills">
+            <option value="1">PHP</option>
+            <option value="2">Java</option>
+            <option value="3">Python</option>
+            <option value="5">MySQL</option>
+            <option value="6">ASP.Net</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-info">Skills</div>
+        <br>
+        <div class="dropdown-sin-2">
+          <select style="display:none" multiple placeholder="Skilla"></select>
+        </div>
+      </div>
+      <div class="col-sm-4" style="margin-top:40px;">
+        <button class="btn btn-primary btn-sm" id="update2">Update</button>
+        <button class="btn btn-primary btn-sm" id="reset">reset</button>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
+  </form>
+  <script>
+    var Random = Mock.Random;
+    var json1 = Mock.mock({
+      "data|10-50": [{
+        name: function () {
+          return Random.name(true)
+        },
+        "id": function () {
+          return Random.cword(3);
+        },
+        "one": function () {
+          return Random.name(true)
+        },
+        "two": function () {
+          return Random.name(true)
+        },
+        "disabled|1-2": true,
+        groupName: '分组名',
+        "groupId|1-4": 1,
+        "selected": false
+      }]
+    });
+
+    $('.dropdown-mul-1').dropdown({
+      data: json1.data,
+      limitCount: 40,
+      multipleMode: 'label',
+      choice: function () {
+        console.log(arguments, this);
+      }
+    });
+
+    var json2 = Mock.mock({
+      "data|100-200": [{
+        name: function () {
+          return Random.name(true)
+        },
+        "id|+1": 1,
+        "disabled": false,
+        groupName: '分组名',
+        "groupId|1-4": 1,
+        "selected": false
+      }]
+    });
+
+    Mock.mock('/update', {
+      "data|51-100": [{
+        name: function () {
+          return Random.name(true)
+        },
+        "id|+1": 101,
+        "disabled|1-2": true,
+        groupName: '分组名',
+        "groupId|1-4": 1,
+        "selected": false
+      }]
+    });
+    Mock.mock('/update2', {
+      "data|201-300": [{
+        name: function () {
+          return Random.name(true)
+        },
+        "id|+1": 201,
+        "disabled": false,
+        groupName: '分组名',
+        "groupId|1-4": 1,
+        "selected": false
+      }]
+    });
+
+
+    $('.dropdown-mul-2').dropdown({
+      limitCount: 5,
+      searchable: false,
+      choice: function () {
+        console.log('.dropdown-mul-2 picked')
+      }
+    });
+
+
+    $('#update').on('click', function (event) {
+      event.preventDefault();
+      $.get('/update', function (res) {
+        $('.dropdown-mul-1').data('dropdown').update(JSON.parse(res).data, true);
+      });
+    });
+
+    $('.dropdown-sin-1').dropdown({
+      readOnly: true,
+      input: '<input type="text" maxLength="20" placeholder="请输入搜索">',
+      choice: function () {
+        console.log(arguments, this);
+      }
+    });
+
+    $('.dropdown-sin-2').dropdown({
+      data: json2.data,
+      input: '<input type="text" maxLength="20" placeholder="请输入搜索">',
+      choice: function () {
+        console.log(arguments, this);
+      }
+    });
+
+
+    $('#update2').on('click', function (event) {
+      event.preventDefault();
+      $.get('/update', function (res) {
+        $('.dropdown-sin-2').data('dropdown').update(JSON.parse(res).data, false);
+      });
+    });
+
+    var test = $('.dropdown-sin-1').data('dropdown')
+
+
+    $('#reset').on('click', function () {
+      event.preventDefault();
+      $('.dropdown-sin-2').data('dropdown').reset()
+    })
+  </script>
+</body>
+
+</html>
