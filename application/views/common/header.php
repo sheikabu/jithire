@@ -11,7 +11,7 @@
     <title>jithire</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
 
     <!-- Custom fonts for this template -->
     <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -41,7 +41,7 @@
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary btn-lg text-uppercase" data-toggle="modal" data-target="#myModal">Sign Up</button>
+              <button type="button" class="btn btn-primary btn-lg text-uppercase" data-toggle="modal" id="myModel" data-target="#myModal">Sign Up</button>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#services">Services</a>
@@ -57,6 +57,9 @@
             </li> -->
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/contact">Contact Us</a>
+            </li>
+            <li>
+            <a href="<?php echo site_url('user/logout');?>" >  <button type="button" class="btn-primary">Logout</button></a>
             </li>
           </ul>
         </div>

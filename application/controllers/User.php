@@ -9,6 +9,7 @@ class User extends CI_Controller {
 		parent::__construct();
 		//$this->load->helper('form');
 		$this->load->model('valid_m');
+		$this->load->model('user_profile');
 	}
 
 	public function index()
@@ -45,7 +46,13 @@ class User extends CI_Controller {
 			      	 redirect('user');
 			      }
 		 		$info['message']="valid success";
-		
+		 		$role = $this->session->userdata("role");
+		 		if($role == 'candidate'){
+		 		redirect('user/user_details');
+		 		} 
+		 		if($role == 'company'){
+		 		redirect('post_job/job_posting_page');
+				}
 	}
 	public function logout() //login_check
 	{
@@ -66,50 +73,61 @@ class User extends CI_Controller {
 	}
 	public function user_details() // add user full details
 	{
-		
+		$candidate_id = $this->session->userdata("id");
 		$this->load->view('common/header');
-		$this->load->view('user_details');
+		$data['get_candidate_info'] = $this->user_profile->get_user_profile_id($candidate_id);
+		$this->load->view('user_details',$data);
 		$this->load->view('common/footer');
 		
 	}
-	public function user_insert() //login_check
+	public function insert_user_profile() //login_check
 	{
-				$industr=$this->input->post('industry[]');
-				$rol=$this->input->post('role[]');
-				$skil=$this->input->post('skill[]');
-				$compan=$this->input->post('company[]');
-				$preferred_location=$this->input->post('prefered_location');
+				//$industr=$this->input->post('industry[]');
+				//$rol=$this->input->post('role[]');
+				//$skil=$this->input->post('skill[]');
+				//$compan=$this->input->post('company[]');
+				//$preferred_location=$this->input->post('prefered_location');
 
     
-				$industry=implode(",", $industr);    //prints 1, 2, 3
-				$role=implode(",", $rol); 
-				$skill=implode(",", $skil); 
-				$company=implode(",", $compan); 
+				//$industry=implode(",", $industr);    //prints 1, 2, 3
+				//$role=implode(",", $rol); 
+				//$skill=implode(",", $skil); 
+				//$company=implode(",", $compan); 
     			//print join(',', $stuff);        //prints 1, 2, 3
 
-					
+    			$emp=json_encode($this->input->post('employer_name'));
+    			$des=json_encode($this->input->post('designation'));
+    			$ds = json_encode($this->input->post('duration_start'));
+    			$de = json_encode($this->input->post('duration_end'));
+				
+				//$emp=$this->input->post('employer_name');
+				//$des=$this->input->post('designation');
+				$employer = json_encode(array_merge(json_decode($emp, true),json_decode($des, true),json_decode($ds, true),json_decode($de, true)));
+				//print_r($employer); exit;
                     $user_details=array(
 		 			
-		 			'first_name' => $this->input->post('first_name'), 
-		 			'middle_name' => $this->input->post('middle_name'), 
-		 			'last_name' => $this->input->post('last_name'), 
+		 			'name' => $this->input->post('first_name'), 		 			
 		 			'email' => $this->input->post('email'), 
+		 			'resume_headline' => $this->input->post('resume_headline'),
 					'pancard' => $this->input->post('pancard'),
 					'mobile_number' => $this->input->post('mobile_number'),
-					'dob' => $this->input->post('dob'),
+					'dob' => $this->input->post('bday'), 
 					'total_experience' => $this->input->post('total_experience'),
-					'industry' => $this->$industry,
-					'role' => $this->$role,
-					'skill' => $this->$skill,
-					'preferred_location' => $this->$prefered_location,
-					'minimum_salary' => $this->input->post('minimum_salary'),
-					'company' => $this->input->post($company),
-					'previous_experience' => $this->input->post('previous_experience'),
+					'gender' => $this->input->post('gender'),
+					'industry' => $this->input->post('industry'),
+					'functional_area' =>$this->input->post('functional_area'),
+					'role' => $this->input->post('role'),
+					'preferred_location' => json_encode($this->input->post('preferred_location')),
+					'salary_lakhs' => $this->input->post('lakhs'),
+					'salary_thousands' => $this->input->post('thousands'),
+					'previous_experience' => $employer,					
+					//'company' => $this->input->post($company),
+					//'previous_experience' => $this->input->post('previous_experience'),
 					'user_id' => $this->input->post('user_id')
 
 		 			);
-					// print_r ($user_details['industry']);
-				    $this->valid_m->user_insert($user_details);
+					//print_r ($user_details['employer_name']); exit;
+				    $this->user_profile->insert_user_profile($user_details);
 		 			
 
 				
@@ -118,6 +136,7 @@ class User extends CI_Controller {
 		 		//$this->load->view('login.php',$info);
 		 		//redirect('same_controller/index', 'refresh');
 		 		//redirect('user_profile');
+		 		redirect('user/user_details');
                 
 	}
 
