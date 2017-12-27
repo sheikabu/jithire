@@ -91,18 +91,14 @@ class User extends CI_Controller {
 	} 
 
 	// admin company details display
-	public function company_tables() 
+	public function company_details() 
 	{
+		
 		$userdata='company';
-		$query = $this->valid_m->getCompanyTables($userdata);
-		 $data['company_tables'] = null;
-		if($query){
-		   $data['Company_tables'] =  $query;
-		    $this->company_dashboard($data);
+		$data['company_details'] = $this->valid_m->getCompanyDetails($userdata);
+		//$this->company_dashboard($data);
+		$this->load->view('company_details');
+	  }
 
-		  }
 	} 
-
-
-}
    

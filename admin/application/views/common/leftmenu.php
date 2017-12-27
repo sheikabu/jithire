@@ -369,7 +369,7 @@
                     </li>
 
                     <li class="">
-                        <a href="<?php echo base_url('user/company_tables'); ?>" 
+                        <a href="<?php echo base_url('user/company_details'); ?>" 
                             <i class="menu-icon fa fa-caret-right"></i>
                             <span class="menu-text">
                                 Company

@@ -52,7 +52,7 @@ class Valid_m extends CI_Model{
 	 // return $query->result();
  	}
  	// company_table display in admin page
- 	public function getCompanyTables($userdata){
+ 	public function getCompanyDetails($userdata){
 	  
 	 
 	  $this->db->select("first_name,last_name,email,role,status");
