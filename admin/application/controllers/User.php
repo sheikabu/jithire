@@ -97,7 +97,7 @@ class User extends CI_Controller {
 		$userdata='company';
 		$data['company_details'] = $this->valid_m->getCompanyDetails($userdata);
 		//$this->company_dashboard($data);
-		$this->load->view('company_details');
+		$this->load->template('company_details');
 	  }
 
 	} 

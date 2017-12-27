@@ -40,6 +40,7 @@ class Post_job extends CI_Controller {
 				
 				$skills = json_encode(array_merge(json_decode($skill, true),json_decode($proficiency, true)));
 				
+				print_r($skills)l exit;
                     $user_details=array(
 		 			
 		 			'role' => $this->input->post('role'), 			
