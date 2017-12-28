@@ -8,7 +8,8 @@ class JithireAdmin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('session');		
-		$this->load->model('valid_m');		
+		$this->load->model('valid_m');
+		$this->load->model('company_model');
 	}
 
 	public function load_view($view, $vars = array()) {
@@ -77,8 +78,8 @@ class JithireAdmin extends CI_Controller {
 	public function company_details()
 	{
 		$userdata='company';
-		$data['company_details'] = $this->valid_m->getCompanyDetails($userdata);		
-		$this->load_view('company_details');
+		$data['company_details'] = $this->company_model->getCompanyDetails($userdata);		
+		$this->load_view('company_details',$data);
 	  }
 
 
@@ -86,7 +87,7 @@ class JithireAdmin extends CI_Controller {
 	public function locations()
 	{
 		$userdata='company';
-		$data['company_details'] = $this->valid_m->getCompanyDetails($userdata);		
+		$data['company_details'] = $this->company_model->getCompanyDetails($userdata);		
 		$this->load_view('locations');
 	  }
 
