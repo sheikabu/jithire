@@ -25,9 +25,12 @@
                       <?php $loginfailed = $this->session->flashdata('loginfailed'); if($loginfailed != '') { 
                         echo $loginfailed;
                        } ?>
+                       <?php $user_loggedout = $this->session->flashdata('user_loggedout'); if($user_loggedout != '') { 
+                        echo $user_loggedout;
+                       } ?>
                       <div class="space-6"></div>
 
-                      <form method="post" action="user/check">
+                      <form method="post" action="jithireAdmin/dashboard">
                         <fieldset>
                           <label class="block clearfix">
                             <span class="block input-icon input-icon-right">

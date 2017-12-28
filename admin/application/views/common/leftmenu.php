@@ -359,43 +359,65 @@
                 </div><!-- /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
-                    <li class="active">
-                        <a href="index.html">
+                    <li class="">
+                        <a href="<?php echo base_url('jithireAdmin/dashboard'); ?>">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
-
                         <b class="arrow"></b>
                     </li>
 
                     <li class="">
-                        <a href="<?php echo base_url('user/company_details'); ?>" 
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            <span class="menu-text">
-                                Company
-                            </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
+                        <a href="<?php echo base_url('jithireAdmin/company_details'); ?>">
+                            <i class="menu-icon fa fa-th-list"></i>
+                            <span class="menu-text">Company</span>
                         </a>
-
                         <b class="arrow"></b>
-
-                        
                     </li>
 
                     <li class="">
-                        <a href="<?php echo base_url('user/user_tables');  ?>" 
-                            <i class="menu-icon fa fa-caret-right"></i>
+                        <a href="<?php echo base_url('jithireAdmin/candidate_details');  ?>">
+                            <i class="menu-icon fa fa-user"></i>
                             <span class="menu-text"> Candidate </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+                        <b class="arrow"></b>                        
+                    </li>
+                     <li class="">
+                        <a href="<?php echo base_url('jithireAdmin/locations');  ?>">
+                            <i class="menu-icon fa fa-plane"></i>
+                            <span class="menu-text"> Locations </span>
+                        </a>
+                        <b class="arrow"></b>                        
+                    </li>                      
+                      <li class="">
+                        <a href="#" style="pointer-events: none;">
+                            <i class="menu-icon fa fa-file-o"></i>
+                            <span class="menu-text">CMS</span>
                         </a>
 
-                        <b class="arrow"></b>
-                        
+                        <ul class="submenu nav-show" style="display: block;">
+                            <li>
+                                <a href="<?php echo base_url('jithireAdmin/candidate_details');  ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span class="menu-text">About us</span>
+                        </a>
+                            </li>
+                             <li>
+                                <a href="<?php echo base_url('jithireAdmin/candidate_details');  ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span class="menu-text">Contact us</span>
+                        </a>
+                            </li>
                         </ul>
+                        <b class="arrow"></b>                        
                     </li>
-                    
+                     <li class="">
+                        <a href="<?php echo base_url('jithireAdmin/logout');  ?>">
+                            <i class="menu-icon fa fa-sign-out"></i>
+                            <span class="menu-text"> LOGOUT </span>
+                        </a>
+                        <b class="arrow"></b>                        
+                    </li>
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
