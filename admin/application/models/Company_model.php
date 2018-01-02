@@ -15,7 +15,7 @@ class Company_model extends CI_Model{
 	  $this->db->where('role','company');
 	  $query=$this->db->get();
 	  //echo $this->db->last_query(); exit;
-	  echo $results = $query->result_array();
+	  $results = $query->result();
 	  return $results;
 	}
 }
