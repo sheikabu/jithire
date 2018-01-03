@@ -82,6 +82,13 @@ class JithireAdmin extends CI_Controller {
 		$this->load_view('company_details',$data);
 	  }
 
+   // admin company details display
+	public function company_block()
+	{
+		$userdata='company';
+		$data['company_details'] = $this->company_model->getCompanyDetails($userdata);		
+		$this->load_view('company_details',$data);
+	  }
 
     // Locations:- Admin add/edit locations. Added Locations will display to users.
 	public function locations()
