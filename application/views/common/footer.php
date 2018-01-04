@@ -55,6 +55,16 @@
     <script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
    <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
 
+   <script>
+   $("#candidate").click(function(){
+      $("#candidate_view").show();
+      $("#company_view").hide();
+    }); 
+    $("#company").click(function(){
+      $("#candidate_view").hide();
+      $("#company_view").show();
+    });
+</script>
   </body>
 
 </html>

@@ -149,15 +149,18 @@
                   </div>
                   <div class="modal-body">                  
                    <?php echo $this->session->flashdata('msg'); ?>
+                    <input type="radio" name='role' id="candidate" value="candidate"> I am a Candidate
+                    <input type="radio" name='role' id="company" value="company"> I am an Employer
+
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn active">
-                            <input type="radio" name='role' onclick="btnSearch_Click();"  id="candidate" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
+                            <input type="radio" name='roles' id="candidate" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
                           </label>
                           <label class="btn">
-                            <input type="radio" name='role' id="company" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
+                            <input type="radio" name='roles' id="company" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
                           </label>
                         </div>
-                        <div id="candidate">
+                        <div id="candidate_view">
                          <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
                         <div class="col-xs-12 mBot-10 mBot-10 text-right">
                             <!-- Create Profile from Linkedin -->
@@ -204,7 +207,7 @@
                          </form>
                         </div>
                       
-                         <div id="company">
+                         <div id="company_view">
                          <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
                           <div class="form-group">
                               <label>Company Name</label>
