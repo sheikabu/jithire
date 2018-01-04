@@ -147,17 +147,18 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     
                   </div>
-                  <div class="modal-body">
-                   <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
+                  <div class="modal-body">                  
                    <?php echo $this->session->flashdata('msg'); ?>
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn active">
-                            <input type="radio" name='role' id="celcius" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
+                            <input type="radio" name='role' onclick="btnSearch_Click();"  id="candidate" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
                           </label>
                           <label class="btn">
-                            <input type="radio" name='role' id="fahrenheit" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
+                            <input type="radio" name='role' id="company" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
                           </label>
-                        </div> 
+                        </div>
+                        <div id="candidate">
+                         <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
                         <div class="col-xs-12 mBot-10 mBot-10 text-right">
                             <!-- Create Profile from Linkedin -->
                             <a href="#" class="">Create Profile from Linkedin</a>
@@ -200,8 +201,46 @@
                         <div class="btn-form text-center col-xs-12">
                             <button class="btn btn-fill">Sign Up</button>
                         </div>
-
-                    </form>
+                         </form>
+                        </div>
+                      
+                         <div id="company">
+                         <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
+                          <div class="form-group">
+                              <label>Company Name</label>
+                              <input type="text" name="company_name" class="form-control" placeholder="company_name"/>
+                            </div>
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input type="text" name="address" class="form-control" placeholder="address"/>
+                            </div>
+                            <div class="form-group">
+                              <label>Url</label>
+                              <input type="text" name="url" class="form-control" placeholder="url"/>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label>city</label>
+                              <input type="text" name="city" class="form-control" placeholder="city"/>
+                            </div>
+                            <div class="form-group">
+                              <label>State</label>
+                              <input type="text" name="state" class="form-control" placeholder="state"/>
+                            </div>
+                            <div class="form-group">
+                              <label>Country</label>
+                              <input type="text" name="country" class="form-control" placeholder="country"/>
+                            </div>
+                            <div class="form-group">
+                              <label>Role</label>
+                              <input type="hidden" name="role" class="form-control" value="company" placeholder="role"/>
+                            </div>
+                            <div class="form-group">
+                              <input type="hidden" name="status" class="form-control" placeholder="status" value="active"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary" onclick="validation_c()">submit</button>
+                         </form>
+                         </div>
                   </div>
                   <!-- <div class="modal-footer hidden">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -417,5 +456,8 @@
         </div>
       </div>
     </div>
-
-   
+<script>
+ function btnSearch_Click() {
+        console.log('asd');
+       }
+</script>

@@ -372,7 +372,16 @@
                             <i class="menu-icon fa fa-th-list"></i>
                             <span class="menu-text">Company</span>
                         </a>
-                        <b class="arrow"></b>
+                        
+                        <ul class="submenu nav-show" style="display: block;">
+                            <li>
+                                <a href="<?php echo base_url('jithireAdmin/posted_jobs');  ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span class="menu-text">Posted Jobs</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <b class="arrow"></b>    
                     </li>
 
                     <li class="">

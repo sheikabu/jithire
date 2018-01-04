@@ -18,10 +18,8 @@
 
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">Company Information</h3>
-
-										<div class="clearfix">
-											<div class="pull-right tableTools-container"></div>
+										<h3 class="header smaller lighter blue">Company List</h3>
+										<div id="message">																				
 										</div>
 										
 										<!-- div.table-responsive -->
@@ -37,9 +35,9 @@
 																<span class="lbl"></span>
 															</label>
 														</th>
-														<th>Domain</th>
-														<th>Price</th>
-														<th class="hidden-480">Clicks</th>
+														<th>Name</th>
+														<th>Name</th>
+														<th class="hidden-480">Email</th>
 
 														<th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -69,10 +67,10 @@
 														</td>
 														<td><?php echo $company->last_name; ?></td>
 														<td class="hidden-480"><?php echo $company->email; ?></td>
-														<td>Feb 12</td>
+														<td><?php echo $company->date_time; ?></td>
 
 														<td class="hidden-480">
-															<span class="label label-sm label-warning"><?php echo $company->status; ?></span>
+															<span class="label label-sm label-warning"><?php echo ucfirst($company->status); ?></span>
 														</td>
 
 														<td>
@@ -80,23 +78,26 @@
 																<a class="blue" href="#">
 																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
 																</a>
+																<?php if(($company->status)=='active') {
+																		$status = "blocked";
+																		$color = "green";
+																		}	else {
+																		$status = "active";
+																		$color = "red";
+																		}
 
-																<a class="green" href="#">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																	?>
+																
+																<a class="red" href="#" onclick="makeAjaxCall(<?php echo $company->id; ?>,'<?php echo $status; ?>');">
+																	<i class="ace-icon fa fa-flag bigger-130" id="status" style="color: <?php echo $color; ?>"></i>
 																</a>
-
-																<a class="red" href="#">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																</a>
-																<a class="red" href="#" onclick="makeAjaxCall();">
-																	<i class="ace-icon fa fa-flag bigger-130"></i>
-																</a>
+																
 															</div>
 
 															
 														</td>
 													</tr>
-													<?php } ?>>
+													<?php } ?>
 													
 
 													
@@ -117,25 +118,18 @@
 		</div><!-- /.main-container -->
 
 		<script>
-function makeAjaxCall(){ alert('aa');
+function makeAjaxCall($cid,$block){
  $.ajax({
   type: "post",
-  url: "http://localhost/CodeIgnitorTutorial/index.php/usercontroller/verifyUser",
+  url: "<?php echo site_url('jithireAdmin/company_block'); ?>",
   cache: false,    
-  data: $('#userForm').serialize(),
-  success: function(json){      
-  try{  
-   var obj = jQuery.parseJSON(json);
-   alert( obj['STATUS']);
-     
-   
-  }catch(e) {  
-   alert('Exception while request..');
-  }  
-  },
-  error: function(){      
-   alert('Error while request..');
-  }
+  data: {cid: $cid, block: $block},
+    success: function(message) {   	
+       $('#message').html(message);
+       	if(message='active') {
+       $("#status").css("color", "green"); } if(message='blocked') {
+       $("#status").css("color", "red"); }
+   }
  });
 }
 </script>

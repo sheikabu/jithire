@@ -24,6 +24,7 @@ class Post_job extends CI_Controller {
 	
 	public function job_posting_page() // add user full details
 	{
+		echo 'adad'; exit;
 		$candidate_id = $this->session->userdata("id");
 		$this->load->view('common/header');
 		//$data['get_candidate_info'] = $this->user_profile->get_user_profile_id($candidate_id);

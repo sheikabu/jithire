@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class JithireAdmin extends CI_Controller {
@@ -10,6 +11,8 @@ class JithireAdmin extends CI_Controller {
 		$this->load->library('session');		
 		$this->load->model('valid_m');
 		$this->load->model('company_model');
+		$this->load->model('candidate_model');
+		$this->load->model('postedjobs_model');
 	}
 
 	public function load_view($view, $vars = array()) {
@@ -66,13 +69,6 @@ class JithireAdmin extends CI_Controller {
 			
 	}
 
-	public function candidate_details() 
-	{
-		$userdata='candidate';
-		$query = $this->valid_m->getUserTables($userdata);
-		$data['User_tables'] =  $query;
-		$this->load_view('candidate_details');
-	} 
 
 	// admin company details display
 	public function company_details()
@@ -85,10 +81,37 @@ class JithireAdmin extends CI_Controller {
    // admin company details display
 	public function company_block()
 	{
-		$userdata='company';
-		$data['company_details'] = $this->company_model->getCompanyDetails($userdata);		
-		$this->load_view('company_details',$data);
+		//$userdata='company';
+		$cid = $_POST['cid'];
+		$block = $_POST['block'];		
+		$message = $this->company_model->blockCompany($cid,$block);			
+	}
+
+	 	// admin Candidate details display
+	public function candidate_details()
+	{
+		$userdata='candidate';
+		$data['candidate_details'] = $this->candidate_model->getCandidateDetails($userdata);		
+		$this->load_view('candidate_details',$data);
 	  }
+
+   // admin Candidate details display
+	public function candidate_block()
+	{
+		//$userdata='company';
+		$cid = $_POST['cid'];
+		$block = $_POST['block'];		
+		$message = $this->candidate_model->blockCandidate($cid,$block);			
+	  }
+
+
+	  // admin company details display
+	public function posted_jobs()
+	{		
+
+		$data['posted_jobs'] = $this->postedjobs_model->getPostedjobs();
+		$this->load_view('posted_jobs',$data);	
+	}
 
     // Locations:- Admin add/edit locations. Added Locations will display to users.
 	public function locations()
