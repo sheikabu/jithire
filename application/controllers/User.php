@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
@@ -8,17 +9,22 @@ class User extends CI_Controller {
 	{
 		parent::__construct();
 		//$this->load->helper('form');
+		$this->load->helper('date');
 		$this->load->model('valid_m');
 		$this->load->model('user_profile');
 	}
 
+	public function load_view($view, $vars = array()) {
+	    $this->load->view('common/header', $vars);	    
+	    $this->load->view($view, $vars);
+	    $this->load->view('common/footer');
+	  }
+
 	public function index()
 	{
-		
-		$this->load->view('common/header');
-		$this->load->view('login');
-		$this->load->view('common/footer');
+		$this->load_view('login');
 	}
+	
 	public function login_check() //login_check
 	{
 		
@@ -217,19 +223,12 @@ class User extends CI_Controller {
 
 	public function about() 
 	{
-		
-		$this->load->view('common/header');
-		$this->load->view('about');
-		$this->load->view('common/footer');
+		$this->load_view('about');		
 		
 	}
 	public function contact() 
 	{
-		
-		$this->load->view('common/header');
-		$this->load->view('contact');
-		$this->load->view('common/footer');
-		
+		$this->load_view('contact');
 	}
 
 	public function valid()
@@ -240,70 +239,77 @@ class User extends CI_Controller {
 		$this->load->view('common/footer');
 	}
 
+	//Candiate Registration
 	public function register_check() //login_check
 	{
+
 
 					$this->form_validation->set_rules('password','Password','trim|required|matches[password]'); 
 					$this->form_validation->set_rules('confirm_password','Confirm_password','trim|required|matches[password]'); 
 
 					 if ($this->form_validation->run() == FALSE)
                 {
-                	//$message = 'sorry mismatch password';
-				//$this->session->set_flashdata('message', $message);
-				$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Failed!! sorry mismatch password..Please try again.</div>');
-                        //redirect('valid($message)');
-                        $this->load->view('common/header');
-						$this->load->view('login');
-						$this->load->view('common/footer');
-	
+					echo $message = '<div class="alert alert-danger text-center">Failed!! sorry mismatch password..Please try again.</div>'; exit;
                 }
                 else
                 {
-                       $register_details=array(
-		 			
+                     $register_details=array(
 		 			'first_name' => $this->input->post('first_name'), 
 		 			'last_name' => $this->input->post('last_name'), 
 		 			'email' => $this->input->post('email'), 
 					'password' => md5($this->input->post('password')), 
 					'role' => $this->input->post('role'),
-					'status' => $this->input->post('status')
-
+					'status' => $this->input->post('status'),
+					'date_time' => mdate('%Y-%m-%d %H:%i:%s', now())
 		 			);
-
-				echo $email_check=$this->valid_m->email_check($register_details['email']);
-				if($email_check){
-				  $this->valid_m->register_insert($register_details);
-		 			$link = anchor('user/index', 'login');
-
-					$message = 'Thank You for registering with Jithire' .' '. $link .' '. 'please login your account!';
-					$this->session->set_flashdata('wel_message', $message);
-		 			//$this->load->user;
-		 			$this->index();
-
-				}
-				else{
-
-				  $this->session->set_flashdata('message', 'email already registered.please use forgot password');
-				  redirect('user');
-
-
-				}
-
-		 		
-		 		//$this->load->user;
-		 		//$this->load->view('login.php',$info);
-		 		//redirect('same_controller/index', 'refresh');
-		 		//redirect('user_profile');
-                }
+					$email_check=$this->valid_m->email_check($register_details['email']); 
+					if($email_check){
+					  	$this->valid_m->register_insert($register_details);
+			 			echo $message = '<div class="alert alert-success text-center">Thank You for registering with Jithire.</div>';exit;
+					}
+					else{
+					    echo $message = '<div class="alert alert-danger text-center">Email already Exist!</div>'; exit;		    
+					}
+           }
 	}
+
+	//Company Registration
 	public function registration_company() //login_check
 	{
-		/*if(!$this->session->userdata('logged_in')){
-			redirect('user');
-		}*/
-		$data['registration_company']='company_registration';
-		$this->load->view('company_registration',$data);
+		
+					$this->form_validation->set_rules('password','Password','trim|required|matches[password]'); 
+					$this->form_validation->set_rules('confirm_password','Confirm_password','trim|required|matches[password]'); 
 
+					 if ($this->form_validation->run() == FALSE)
+                {
+					echo $message = '<div class="alert alert-danger text-center">Failed!! sorry mismatch password..Please try again.</div>'; exit;
+                }
+                else
+                {
+
+                    $company_details=array(
+		 			'id' => $this->input->post('id'), 
+		 			'company_name' => $this->input->post('company_name'),	 			 
+		 			'url' => $this->input->post('url'),
+					'city' => $this->input->post('city'),
+					'state' => $this->input->post('state'),
+					'country' => $this->input->post('country'), 
+					'role' => $this->input->post('role'),
+					'status' => $this->input->post('status'),
+					'email' => $this->input->post('email'), 
+					'password' => md5($this->input->post('password')), 
+					'date_time' => mdate('%Y-%m-%d %H:%i:%s', now())
+		 			);
+
+					$email_check=$this->valid_m->company_name_check($company_details['company_name']); 
+					if($email_check){
+					  	$this->valid_m->company_registration_insert($company_details);
+			 			echo $message = '<div class="alert alert-success text-center">Thank You for registering with Jithire.</div>';exit;
+					}
+					else{
+					    echo $message = '<div class="alert alert-danger text-center">Email already Exist!</div>'; exit;		    
+					}
+           }
 	}
 	public function company_details() //login_check
 	{
@@ -328,15 +334,7 @@ class User extends CI_Controller {
 
 			      }
 				
-	}
-	/*public function about()
-	{
-		
-		$this->load->view('about');
-	}*/
-
-
-
+	}	
 
 }
    

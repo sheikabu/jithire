@@ -36,7 +36,9 @@
         </div>
       </div>
     </footer>
+  </body>
 
+</html>
      <!-- Bootstrap core JavaScript -->
     <script src="assets/jquery/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -64,7 +66,43 @@
       $("#candidate_view").hide();
       $("#company_view").show();
     });
+     $("#company_view").hide();
 </script>
-  </body>
 
-</html>
+
+<script>
+$('form#candidate_form').submit(function(e) {
+    var form = $(this);
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url('user/register_check'); ?>",
+        cache: false,  
+        data: form.serialize(), // <--- THIS IS THE CHANGE        
+        success: function(message){
+          $('#message').html(message);
+        },
+        error: function() { alert("Error posting feed."); }
+   });
+
+});
+</script>
+
+<script>
+$('form#company_form').submit(function(e) {
+    var form = $(this);
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url('user/registration_company'); ?>",
+        cache: false,  
+        data: form.serialize(), // <--- THIS IS THE CHANGE        
+        success: function(message){
+          $('#message').html(message);
+        },
+        error: function() { alert("Error posting feed."); }
+   });
+
+});
+</script>
+

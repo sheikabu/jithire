@@ -67,15 +67,30 @@ class Valid_m extends CI_Model{
 	}
 	
 	public function  register_insert($register_details){ //comments
-		
-		$this->db->insert('jh_registration',$register_details);
-		return TRUE;
+			
+		$this->db->insert('jh_registration',$register_details);		
+		return true;		
 	}
 	
 	public function  company_registration_insert($company_details){ //comments
 		
 		$this->db->insert('jh_company_details',$company_details);
 		return TRUE;
+	}
+
+	public function company_name_check($cName){
+
+	  $this->db->select('*');
+	  $this->db->from('jh_company_details');
+	  $this->db->where('company_name',$cName);
+	  $query=$this->db->get();
+
+	  if($query->num_rows()>0){
+	    return false;
+	  }else{
+	    return true;
+	  }
+
 	}
 	
 }

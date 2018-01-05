@@ -1,3 +1,4 @@
+
 <!-- Button trigger modal -->
     <!-- Header -->
     <header class="masthead">
@@ -21,7 +22,7 @@
                                 <form method="post" class="single-form" action="<?php echo site_url('user/login_check')?>"> <span class="welcome"><?php echo $this->session->flashdata('wel_message'); ?></span>
                                 <span class="text-danger"><?php echo $this->session->flashdata('log_msg'); ?></span>
                                   <span class="text-danger"><?php echo $this->session->flashdata('message'); ?></span>   
-                            		<div class="col-xs-12">
+                                <div class="col-xs-12">
                                         <!-- Email -->
                                         <input name="email" class="contact-email form-control" type="email" placeholder="Email*" required="">
                                     </div>
@@ -148,8 +149,8 @@
                     
                   </div>
                   <div class="modal-body">                  
-                   <?php echo $this->session->flashdata('msg'); ?>
-                    <input type="radio" name='role' id="candidate" value="candidate"> I am a Candidate
+                    <div id="message"></div>
+                    <input type="radio" name='role' id="candidate" value="candidate" checked=""> I am a Candidate
                     <input type="radio" name='role' id="company" value="company"> I am an Employer
 
                         <div class="btn-group" data-toggle="buttons">
@@ -161,7 +162,7 @@
                           </label>
                         </div>
                         <div id="candidate_view">
-                         <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
+                         <form method="post" id="candidate_form" class="single-form">
                         <div class="col-xs-12 mBot-10 mBot-10 text-right">
                             <!-- Create Profile from Linkedin -->
                             <a href="#" class="">Create Profile from Linkedin</a>
@@ -189,6 +190,9 @@
                             <!-- Subject -->
                             <input name="confirm_password" class="contact-cmp-password form-control" placeholder="Confirm Password" type="password"  value="<?php echo set_value('confirm_password'); ?>"><span class="text-danger"><?php echo form_error('confirm_password'); ?></span>
                         </div>
+                        <div class="col-xs-12">                          
+                            <input name="role" type="hidden" value="candidate">
+                        </div>
                         <div class="col-xs-12">
                             <!-- Subject -->
                             <input name="status" type="hidden" value="active">
@@ -208,40 +212,54 @@
                         </div>
                       
                          <div id="company_view">
-                         <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
-                          <div class="form-group">
-                              <label>Company Name</label>
-                              <input type="text" name="company_name" class="form-control" placeholder="company_name"/>
-                            </div>
-                            <div class="form-group">
-                              <label>Address</label>
-                              <input type="text" name="address" class="form-control" placeholder="address"/>
-                            </div>
-                            <div class="form-group">
-                              <label>Url</label>
-                              <input type="text" name="url" class="form-control" placeholder="url"/>
-                            </div>
-                            
-                            <div class="form-group">
-                              <label>city</label>
-                              <input type="text" name="city" class="form-control" placeholder="city"/>
-                            </div>
-                            <div class="form-group">
-                              <label>State</label>
-                              <input type="text" name="state" class="form-control" placeholder="state"/>
-                            </div>
-                            <div class="form-group">
-                              <label>Country</label>
-                              <input type="text" name="country" class="form-control" placeholder="country"/>
-                            </div>
-                            <div class="form-group">
-                              <label>Role</label>
-                              <input type="hidden" name="role" class="form-control" value="company" placeholder="role"/>
-                            </div>
-                            <div class="form-group">
-                              <input type="hidden" name="status" class="form-control" placeholder="status" value="active"/>
-                            </div>
-                            <button type="submit" class="btn btn-primary" onclick="validation_c()">submit</button>
+                         <form method="post" class="single-form" id="company_form">
+                            <div class="col-xs-12 mBot-10 mBot-10 text-right">
+                                <!-- Create Profile from Linkedin -->
+                                <a href="#" class="">Create Profile from Linkedin</a>
+                            </div> 
+
+                          <div class="col-xs-12">                            
+                           <input type="text" name="company_name" class="form-control" placeholder="Company name*" required/>
+                          </div>
+
+                          <div class="col-xs-12">                            
+                           <input type="text" name="url" class="form-control" placeholder="Company url*" required/>
+                          </div>
+                          
+                          <div class="col-xs-12">                            
+                           <input type="text" name="city" class="form-control" placeholder="City*" required/>
+                          </div>
+
+                          <div class="col-xs-12">                            
+                           <input type="text" name="state" class="form-control" placeholder="State*" required/>
+                          </div>
+
+                           <div class="col-xs-12">                            
+                           <input type="text" name="country" class="form-control" placeholder="Country*" required/>
+                          </div>
+
+                           <div class="col-xs-12">                          
+                            <input name="email" class="contact-email form-control" placeholder="Email*" required="" type="email">
+                          </div>
+
+                          <div class="col-xs-12">
+                            <!-- Subject -->                            <input name="password" class="contact-password form-control" placeholder="Password*" type="password"  value="<?php echo set_value('password'); ?>"><span class="text-danger"><?php echo form_error('password'); ?></span>
+                        </div>
+                        <div class="col-xs-12">
+                            <!-- Subject -->
+                            <input name="confirm_password" class="contact-cmp-password form-control" placeholder="Confirm Password*" type="password"  value="<?php echo set_value('confirm_password'); ?>"><span class="text-danger"><?php echo form_error('confirm_password'); ?></span>
+                        </div>
+                        <div class="col-xs-12">                          
+                            <input name="role" type="hidden" value="company">
+                        </div>
+                        <div class="col-xs-12">
+                            <!-- Subject -->
+                            <input name="status" type="hidden" value="active">
+                        </div>
+                           <div class="btn-form text-center col-xs-12">
+                            <button class="btn btn-fill">Sign Up</button>
+                        </div>
+
                          </form>
                          </div>
                   </div>
@@ -459,8 +477,3 @@
         </div>
       </div>
     </div>
-<script>
- function btnSearch_Click() {
-        console.log('asd');
-       }
-</script>
