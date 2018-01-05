@@ -85,8 +85,8 @@ class JithireAdmin extends CI_Controller {
    // admin company details display
 	public function company_block()
 	{
-		$userdata='company';
-		$data['company_details'] = $this->company_model->getCompanyDetails($userdata);		
+		//$userdata='company';
+		$data['company_details'] = $this->company_model->blockCompany($userdata);		
 		$this->load_view('company_details',$data);
 	  }
 
