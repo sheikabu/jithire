@@ -30,5 +30,15 @@ class job_post extends CI_Model{
 			return TRUE;
 	}
 
+	public function posted_job_list($cid){ //comments
+	
+	  $this->db->select('*');
+	  $this->db->from('jh_job_posting');
+	  $this->db->where('company_id',$cid);
+	  $query=$this->db->get();
+	  $results = $query->result_array();
+	  return $results;
+	}
+
 }
 ?>

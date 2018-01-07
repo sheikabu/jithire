@@ -1,3 +1,4 @@
+
 <!-- Button trigger modal -->
     <!-- Header -->
     <header class="masthead">
@@ -17,11 +18,15 @@
         </div>
         <!-- =============== Start: Sign In Form =================== -->
                         <div class="sign-in-wrap col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
-                            <div id="sign-in-form" class="sign-form" tabindex="-1" role="dialog">
-                                <form method="post" class="single-form" action="<?php echo site_url('user/login_check')?>"> <span class="welcome"><?php echo $this->session->flashdata('wel_message'); ?></span>
-                                <span class="text-danger"><?php echo $this->session->flashdata('log_msg'); ?></span>
-                                  <span class="text-danger"><?php echo $this->session->flashdata('message'); ?></span>   
-                            		<div class="col-xs-12">
+                         <input type="radio" name='Srole' id="candidate-sign-in" value="candidate" checked> Jobseeker's
+                         <input type="radio" name='Srole' id="company-sign-in" value="company">Employer's
+
+                        <!-- Job Seeker Login -->
+
+                            <div id="candidate-sign-in-form" class="sign-form" tabindex="-1" role="dialog">
+                            <div id="candidate-sign-in-message"></div>
+                                <form method="post" class="single-form" id="candidate-Sform">   
+                                <div class="col-xs-12">
                                         <!-- Email -->
                                         <input name="email" class="contact-email form-control" type="email" placeholder="Email*" required="">
                                     </div>
@@ -46,6 +51,37 @@
                                         </div>
                                 </form>
                             </div>
+                            <!-- Job Seeker Login END -->
+                            <!--Employer Login -->
+                            <div id="company-sign-in-form" class="sign-form" tabindex="-1" role="dialog">
+                                <form method="post" class="single-form" id="company-Sform"> 
+                                <div id="company-sign-in-message"></div>   
+                                <div class="col-xs-12">
+                                        <!-- Email -->
+                                        <input name="email" class="contact-email form-control" type="email" placeholder="Email*" required="">
+                                    </div>
+                                        <div class="col-xs-12">
+                                                <!-- Subject -->
+                                                <input name="password" class="contact-password form-control" type="password" placeholder="Password">
+                                        </div>
+                                      <div class="row">   
+                                        <div class="col-md-6 col-xs-6">
+                                                <div class="checkbox">
+                                                    <input type="checkbox" id="remember-me">
+                                                    <label for="remember-me">Remember me</label>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 text-right">
+                                                <a href="<?php echo site_url('user/forgot')?>">Forgot password?</a>
+                                        </div>
+                                      </div>     
+                                        <!-- Subject Button -->
+                                        <div class="btn-form text-center col-xs-12">
+                                                <button class="btn btn-fill">Sign In</button>
+                                        </div>
+                                </form>
+                            </div>
+                            <!--Employer Login END-->
                             <div class="text-center mTop-10">----------- or login with -----------</div>
                             <div class="sign-in-social row">
                                 
@@ -147,17 +183,21 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     
                   </div>
-                  <div class="modal-body">
-                   <form method="post" class="single-form" action="<?php echo site_url('user/register_check') ?>">
-                   <?php echo $this->session->flashdata('msg'); ?>
+                  <div class="modal-body">                  
+                    <div id="message"></div>
+                    <input type="radio" name='role' id="candidate" value="candidate" checked=""> I am a Candidate
+                    <input type="radio" name='role' id="company" value="company"> I am an Employer
+
                         <div class="btn-group" data-toggle="buttons">
-                          <label class="btn active">
-                            <input type="radio" name='role' id="celcius" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
+                          <!--<label class="btn active">
+                            <input type="radio" name='roles' id="candidate" value="candidate" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am a Candidate</span>
                           </label>
                           <label class="btn">
-                            <input type="radio" name='role' id="fahrenheit" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
-                          </label>
-                        </div> 
+                            <input type="radio" name='roles' id="company" value="company"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i><span>I am an Employer</span>
+                          </label>-->
+                        </div>
+                        <div id="candidate_view">
+                         <form method="post" id="candidate_form" class="single-form">
                         <div class="col-xs-12 mBot-10 mBot-10 text-right">
                             <!-- Create Profile from Linkedin -->
                             <a href="#" class="">Create Profile from Linkedin</a>
@@ -185,6 +225,9 @@
                             <!-- Subject -->
                             <input name="confirm_password" class="contact-cmp-password form-control" placeholder="Confirm Password" type="password"  value="<?php echo set_value('confirm_password'); ?>"><span class="text-danger"><?php echo form_error('confirm_password'); ?></span>
                         </div>
+                        <div class="col-xs-12">                          
+                            <input name="role" type="hidden" value="candidate">
+                        </div>
                         <div class="col-xs-12">
                             <!-- Subject -->
                             <input name="status" type="hidden" value="active">
@@ -200,8 +243,60 @@
                         <div class="btn-form text-center col-xs-12">
                             <button class="btn btn-fill">Sign Up</button>
                         </div>
+                         </form>
+                        </div>
+                      
+                         <div id="company_view">
+                         <form method="post" class="single-form" id="company_form">
+                            <div class="col-xs-12 mBot-10 mBot-10 text-right">
+                                <!-- Create Profile from Linkedin -->
+                                <a href="#" class="">Create Profile from Linkedin</a>
+                            </div> 
 
-                    </form>
+                          <div class="col-xs-12">                            
+                           <input type="text" name="company_name" class="form-control" placeholder="Company name*" required/>
+                          </div>
+
+                          <div class="col-xs-12">                            
+                           <input type="text" name="url" class="form-control" placeholder="Company url*" required/>
+                          </div>
+                          
+                          <div class="col-xs-12">                            
+                           <input type="text" name="city" class="form-control" placeholder="City*" required/>
+                          </div>
+
+                          <div class="col-xs-12">                            
+                           <input type="text" name="state" class="form-control" placeholder="State*" required/>
+                          </div>
+
+                           <div class="col-xs-12">                            
+                           <input type="text" name="country" class="form-control" placeholder="Country*" required/>
+                          </div>
+
+                           <div class="col-xs-12">                          
+                            <input name="email" class="contact-email form-control" placeholder="Email*" required="" type="email">
+                          </div>
+
+                          <div class="col-xs-12">
+                            <!-- Subject -->                            <input name="password" class="contact-password form-control" placeholder="Password*" type="password"  value="<?php echo set_value('password'); ?>"><span class="text-danger"><?php echo form_error('password'); ?></span>
+                        </div>
+                        <div class="col-xs-12">
+                            <!-- Subject -->
+                            <input name="confirm_password" class="contact-cmp-password form-control" placeholder="Confirm Password*" type="password"  value="<?php echo set_value('confirm_password'); ?>"><span class="text-danger"><?php echo form_error('confirm_password'); ?></span>
+                        </div>
+                        <div class="col-xs-12">                          
+                            <input name="role" type="hidden" value="company">
+                        </div>
+                        <div class="col-xs-12">
+                            <!-- Subject -->
+                            <input name="status" type="hidden" value="active">
+                        </div>
+                           <div class="btn-form text-center col-xs-12">
+                            <button class="btn btn-fill">Sign Up</button>
+                        </div>
+
+                         </form>
+                         </div>
                   </div>
                   <!-- <div class="modal-footer hidden">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -418,4 +513,3 @@
       </div>
     </div>
 
-   

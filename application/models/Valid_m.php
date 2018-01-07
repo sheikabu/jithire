@@ -24,6 +24,23 @@ class Valid_m extends CI_Model{
 	    return false;
 	  }
 	}
+
+	public function company_login_user($email,$password){
+
+	  $this->db->select('*');
+	  $this->db->from('jh_company_details');
+	  $this->db->where('email',$email);
+	  $this->db->where('password',$password);
+
+	  if($query=$this->db->get())
+	  {
+	      return $query->row_array();
+	     
+	  }
+	  else{
+	    return false;
+	  }
+	}
 	public function email_check($email){
 
 	  $this->db->select('*');
@@ -67,15 +84,30 @@ class Valid_m extends CI_Model{
 	}
 	
 	public function  register_insert($register_details){ //comments
-		
-		$this->db->insert('jh_registration',$register_details);
-		return TRUE;
+			
+		$this->db->insert('jh_registration',$register_details);		
+		return true;		
 	}
 	
 	public function  company_registration_insert($company_details){ //comments
-		
+
 		$this->db->insert('jh_company_details',$company_details);
-		return TRUE;
+		return true;
+	}
+
+	public function company_name_check($cName){
+
+	  $this->db->select('*');
+	  $this->db->from('jh_company_details');
+	  $this->db->where('company_name',$cName);
+	  $query=$this->db->get();
+
+	  if($query->num_rows()>0){
+	    return false;
+	  }else{
+	    return true;
+	  }
+
 	}
 	
 }

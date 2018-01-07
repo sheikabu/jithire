@@ -17,8 +17,9 @@ if(!$email){
 	<div class="container">
 	Post New Job
 	<hr>
+	<div class="alert-success text-center"><?php if(!empty($message)) { echo $message; } ?></div>
 		<div class="col-md-6">
-		<div id="message"><?php echo $msg; ?></div>
+		<div id="message"></div>
 			<?php echo form_open('post_job/insert_job_post');?>
 
 			 <div class="form-group">
@@ -37,7 +38,11 @@ if(!$email){
 			
 			    <fieldset>
 			            <input name="skill[]" id="skill" value="" placeholder="Skill" type="text" required />
-			            <input name="proficiency[]" id="proficiency" value="" placeholder="Proficiency"  type="text" required/>
+			            <select name="proficiency[]" id="proficiency" required>
+			            	<option>Basic</option>
+			            	<option>Intermediate</option>
+			            	<option>Advanced</option>
+			            </select>
 			        <a href="#" class='remove'>Remove Section</a>
 
 			    </fieldset>
@@ -97,11 +102,13 @@ if(!$email){
 				</div>
 			</div>
 			<div class="form-group">
-				<label>company_id</label>
-				<input type="text" name="company_id" class="form-control" value='<?php echo($this->session->userdata("id")) ;  ?>' />
+				<input type="hidden" name="company_id" class="form-control" value='<?php echo($this->session->userdata("id")) ;  ?>' />
+			</div>
+			<div class="form-group">
+				<input type="hidden" name="status" value="active" />
 			</div>
 			
-			<button type="submit" class="btn btn-primary" >submit</button>
+			<button type="submit" class="btn btn-primary">submit</button>
 		
 		</div>
 	</div>

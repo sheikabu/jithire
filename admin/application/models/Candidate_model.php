@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Company_model extends CI_Model{
+class Candidate_model extends CI_Model{
 	
 	public function __construct()
 	{
@@ -9,20 +9,20 @@ class Company_model extends CI_Model{
 	}
 
  	// company_table display in admin page
- 	public function getCompanyDetails($userdata){	
+ 	public function getCandidateDetails($userdata){	
 	  $this->db->select('*');
-	  $this->db->from('jh_company_details');
-	  $this->db->where('role','company');
+	  $this->db->from('jh_registration');
+	  $this->db->where('role','candidate');
 	  $query=$this->db->get();
 	  //echo $this->db->last_query(); exit;
 	  $results = $query->result();
 	  return $results;
 	}
 
-	public function blockCompany($cid,$block){	
+	public function blockCandidate($cid,$block){	
 	  	$data=array('status'=>$block);
 		$this->db->where('id',$cid);
-		if($this->db->update('jh_company_details',$data))		
+		if($this->db->update('jh_registration',$data))		
 			{
 			  if($block=='blocked') {	
 			  echo '<div  class="alert alert-block alert-success">Blocked</div>';

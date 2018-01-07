@@ -58,10 +58,42 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/contact">Contact Us</a>
             </li>
-            <li>
-            <a href="<?php echo site_url('user/logout');?>" >  <button type="button" class="btn-primary">Logout</button></a>
+          
+          </ul>
+        </div>
+        <?php if($this->session->userdata('role')=='company'){ ?>
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+          
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>post_job/job_posting_page">Post a Job</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>post_job/posted_jobs">Posted Jobs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/logout">Logout</a>
             </li>
           </ul>
         </div>
+        <?php } ?>
+        <?php if($this->session->userdata('role')=='candidate'){ ?>
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+          
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/user_details">Profile</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>browse_jobs">Browse Jobs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+        <?php } ?>
       </div>
     </nav>
