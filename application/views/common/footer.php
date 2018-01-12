@@ -165,3 +165,141 @@ $('form#company-Sform').submit(function(e) {
 
 });
 </script>
+
+<script>
+$('form#basic-info-view').submit(function(e) {
+    var form = $(this);
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url('user/basic_info'); ?>",
+        cache: false,  
+        data: form.serialize(), // <--- THIS IS THE CHANGE        
+        success: function(message){
+          $('#message').html(message);
+        },
+        error: function() { alert("Error posting feed."); }
+   });
+
+});
+
+$('form#upload_photo-view').submit(function(e){
+  var form = $(this);
+    e.preventDefault();
+
+    if($('#image_file').val() == '')  
+           {  
+                alert("Please Select the File");  
+           } 
+            else  
+           {  
+                $.ajax({  
+                     url:"<?php echo site_url('user/do_upload'); ?>",
+                     //base_url() = http://localhost/tutorial/codeigniter  
+                     method:"POST",  
+                     data:new FormData(this),  
+                     contentType: false,  
+                     cache: false,  
+                     processData:false,  
+                     success:function(data)  
+                     {  
+                          $('#photo-view').html(data);  
+                     }  
+                });  
+           } 
+    });  
+
+$('form#upload_resume-view').submit(function(e){
+  var form = $(this);
+    e.preventDefault();
+
+    if($('#resume_file').val() == '')  
+           {  
+                alert("Please Select the File");  
+           } 
+            else  
+           {  
+                $.ajax({  
+                     url:"<?php echo site_url('user/do_upload_resume'); ?>",
+                     //base_url() = http://localhost/tutorial/codeigniter  
+                     method:"POST",  
+                     data:new FormData(this),  
+                     contentType: false,  
+                     cache: false,  
+                     processData:false,  
+                     success:function(data)  
+                     {  
+                          $('#resume-view-smsg').html('Resume updated');
+                          $('#resume-view').html(data);
+                          $('#resume-show').hide();  
+                     }  
+                });  
+           } 
+    }); 
+
+$('form#skills-view').submit(function(e) {
+    var form = $(this);
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url('user/do_skills'); ?>",
+        cache: false,  
+        data: form.serialize(), // <--- THIS IS THE CHANGE        
+        success: function(message){
+          $('#message').html(message);
+        },
+        error: function() { alert("Error posting feed."); }
+   });
+
+});
+
+
+</script>
+<script> 
+$(window).load(function(){
+  // this will ensure that all content has loaded before the div is shown
+   $("#basic-info-view").show();
+   $("#upload_photo-view").hide();
+   $("#designation-view").hide();
+   $("#upload_resume-view").hide();
+   $("#skills-view").hide();
+});
+
+$("#basic-info").click(function(){
+       $("#basic-info-view").show();
+       $("#upload_photo-view").hide();
+       $("#designation-view").hide();   
+       $("#upload_resume-view").hide();
+       $("#skills-view").hide();
+});
+
+$("#upload_photo").click(function(){
+       $("#upload_photo-view").show();
+       $("#basic-info-view").hide();
+       $("#designation-view").hide(); 
+       $("#upload_resume-view").hide();
+       $("#skills-view").hide();
+});
+
+$("#designation").click(function(){
+       $("#upload_photo-view").hide();
+       $("#basic-info-view").hide();
+       $("#designation-view").show();
+       $("#upload_resume-view").hide();
+       $("#skills-view").hide();
+});
+$("#resume").click(function(){
+       $("#upload_photo-view").hide();
+       $("#basic-info-view").hide();
+       $("#designation-view").hide();
+       $("#upload_resume-view").show();
+       $("#skills-view").hide();
+});
+$("#skills").click(function(){
+       $("#upload_photo-view").hide();
+       $("#basic-info-view").hide();
+       $("#designation-view").hide();
+        $("#upload_resume-view").hide();
+       $("#skills-view").show();
+});
+</script>

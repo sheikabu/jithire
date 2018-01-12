@@ -59,8 +59,7 @@
               <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/contact">Contact Us</a>
             </li>
           
-          </ul>
-        </div>
+         
         <?php if($this->session->userdata('role')=='company'){ ?>
          <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
@@ -79,21 +78,19 @@
         </div>
         <?php } ?>
         <?php if($this->session->userdata('role')=='candidate'){ ?>
-         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-          
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/user_details">Profile</a>
+         <li class="nav-item">
+              <ul class="notification-user">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#"><i class="fa fa-bell" aria-hidden="true"></i> <span class="notification-count">9</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#">My Jithire <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                </li>
+              </ul>
             </li>
-          
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>browse_jobs">Browse Jobs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="<?php echo site_url() ?>user/logout">Logout</a>
-            </li>
+        <?php } ?>
+
           </ul>
         </div>
-        <?php } ?>
       </div>
     </nav>

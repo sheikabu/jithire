@@ -12,6 +12,7 @@ class User extends CI_Controller {
 		$this->load->helper('date');
 		$this->load->model('valid_m');
 		$this->load->model('user_profile');
+		$this->load->library('upload');
 	}
 
 	public function load_view($view, $vars = array()) {
@@ -142,18 +143,33 @@ class User extends CI_Controller {
 				//$company=implode(",", $compan); 
     			//print join(',', $stuff);        //prints 1, 2, 3
 
-    			$emp=json_encode($this->input->post('employer_name'));
-    			$des=json_encode($this->input->post('designation'));
-    			$ds = json_encode($this->input->post('duration_start'));
-    			$de = json_encode($this->input->post('duration_end'));
-				
-				//$emp=$this->input->post('employer_name');
-				//$des=$this->input->post('designation');
-				$employer = json_encode(array_merge(json_decode($emp, true),json_decode($des, true),json_decode($ds, true),json_decode($de, true)));
+    			
 				//print_r($employer); exit;
+
+				$emp =  $this->input->post('employer_name');
+				$des = $this->input->post('designation');
+				$ds =  $this->input->post('duration_start');
+				$de = $this->input->post('duration_end');
+				$ids    = array(1,2,3,4);
+
+				$results = array();
+
+				foreach ($emp as $id => $key) {
+				    $results[$key] = array(
+				        'name'  => $emp[$id],
+				        'role' => $des[$id],
+				        'start'    => $ds[$id],
+				        'end'    => $de[$id],
+				    );
+				}
+
+			
+					$prev_employer = json_encode($results, true);
+
+				
                     $user_details=array(
 		 			
-		 			'name' => $this->input->post('first_name'), 		 			
+		 			'name' => $this->input->post('first_name'), 			
 		 			'email' => $this->input->post('email'), 
 		 			'resume_headline' => $this->input->post('resume_headline'),
 					'pancard' => $this->input->post('pancard'),
@@ -167,27 +183,119 @@ class User extends CI_Controller {
 					'preferred_location' => json_encode($this->input->post('preferred_location')),
 					'salary_lakhs' => $this->input->post('lakhs'),
 					'salary_thousands' => $this->input->post('thousands'),
-					'previous_experience' => $employer,					
+					'previous_experience' => $prev_employer,					
 					//'company' => $this->input->post($company),
 					//'previous_experience' => $this->input->post('previous_experience'),
-					'user_id' => $this->input->post('user_id')
+					'user_id' => $this->session->userdata("id")
 
 		 			);
+
 					//print_r ($user_details['employer_name']); exit;
 				    $this->user_profile->insert_user_profile($user_details);
 		 			
 
-				
+				$message = 'success';
 		 		
 		 		//$this->load->user;
 		 		//$this->load->view('login.php',$info);
 		 		//redirect('same_controller/index', 'refresh');
 		 		//redirect('user_profile');
-		 		redirect('user/user_details');
+		 		//redirect('user/user_details');
                 
 	}
 
+	public function basic_info() {
+				 $user_details=array(
+		 			'name' => $this->input->post('first_name'), 			
+		 			'email' => $this->input->post('email'), 
+					'pancard' => $this->input->post('pancard'),
+					'mobile_number' => $this->input->post('mobile_number'),
+					'dob' => $this->input->post('bday'), 
+					'gender' => $this->input->post('gender'),
+					'user_id' => $this->session->userdata("id"),
+					'preferred_location' => json_encode($this->input->post('preferred_location')),
+					'salary_lakhs' => $this->input->post('lakhs'),
+					'salary_thousands' => $this->input->post('thousands'),
+					'industry' => $this->input->post('industry'),
+					'functional_area' =>$this->input->post('functional_area'),
+					'role' => $this->input->post('role'),
+					
+		 			);
 
+				   $this->user_profile->insert_user_profile($user_details);
+				   echo $message = 'Basic Infomraion Successfully updated.';exit;
+	}
+
+	public function do_upload(){
+
+		if(isset($_FILES["image_file"]["name"]))  
+           {  
+                $config['upload_path'] = 'upload/photos';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+                $this->upload->initialize($config);
+                $this->load->library('upload', $config); 
+                
+                if(!$this->upload->do_upload('image_file'))  
+                {  
+                     echo $this->upload->display_errors();  
+                }  
+                else  
+                { 
+                	 $user_details=array('photos' => $_FILES["image_file"]["name"], 'user_id' => $this->session->userdata("id"));
+                     $data = $this->upload->data(); 
+                     $this->user_profile->insert_user_profile($user_details);
+                     echo '<img src="'.base_url().'upload/photos/'.$data["file_name"].'" width="100" height="125" class="img-thumbnail" />';  
+                      
+				   	 
+					}
+                }  
+            
+   			
+     }
+
+     public function do_upload_resume(){
+
+		if(isset($_FILES["resume_file"]["name"]))  
+           {  
+                $config['upload_path'] = 'upload/resumes';
+                $config['overwrite'] = TRUE;
+                $config['allowed_types'] = 'pdf|doc|docx';  
+                $this->upload->initialize($config);
+                $this->load->library('upload', $config); 
+                
+                if(!$this->upload->do_upload('resume_file'))  
+                {  
+                     $this->upload->display_errors();  
+                }  
+                else  
+                { 
+                	 $user_details=array('resume' => $_FILES["resume_file"]["name"], 'user_id' => $this->session->userdata("id"));
+                     $data = $this->upload->data(); 
+                     $this->user_profile->insert_user_profile($user_details);
+                     echo '<a target="_blank" href="'.base_url().'upload/resumes/'.$data["file_name"].'">'.$data["file_name"].'</a>';  
+                      
+				   	 
+					}
+                }  
+            
+   			
+     }
+
+      public function do_skills(){
+     			$skill_array =  $this->input->post('skill');
+				$profi_array = $this->input->post('proficiency');
+				$results = array_combine($skill_array, $profi_array);
+				$skills = json_encode($results, true);
+
+				 $user_details=array(
+		 			'skills' => $skills,
+		 			'user_id' => $this->session->userdata("id")
+		 			);
+
+		 		 $this->user_profile->insert_user_profile($user_details);
+				 echo $message = 'Skills Successfully updated.';exit;
+
+				}
 
 	public function forgot() 
 	{

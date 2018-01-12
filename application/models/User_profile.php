@@ -26,13 +26,13 @@ class user_profile extends CI_Model{
 	}
 
 	public function  insert_user_profile($user_details){ //comments
-		$user_id = $user_details['user_id'];
+		 $user_id = $user_details['user_id'];
 		 $this->db->select('*');
-	  	  $this->db->from('jh_user_profile');
-		  $this->db->where('user_id',$user_id);
-		  $query=$this->db->get();
+	  	 $this->db->from('jh_user_profile');
+		 $this->db->where('user_id',$user_id);
+		 $query=$this->db->get();
 
-		  if($query->num_rows()>0){
+		  if($query->num_rows()>0){ 
 			$this->db->where('user_id', $user_id);
 			$this->db->update('jh_user_profile', $user_details);
 		    return true;

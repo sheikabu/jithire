@@ -6,7 +6,8 @@
 
 body {
     overflow-x: hidden;
-    font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif
+    /*font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif*/
+    color: #3a5270;
 }
 p {
     line-height: 1.75
@@ -134,7 +135,7 @@ body {
 }
 #mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #E1AD8A
+    color: #DF9D4C;
 }
 @media (min-width: 992px) {
     #mainNav {
@@ -606,7 +607,7 @@ ul.social-buttons li a {
     color: #fff;
     border-radius: 100%;
     outline: 0;
-    background-color: #212529
+    background-color: #3a5270
 }
 ul.social-buttons li a:active,
 ul.social-buttons li a:focus,

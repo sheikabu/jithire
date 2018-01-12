@@ -5,7 +5,7 @@ var template = $('#sections .section:first').clone();
 var sectionsCount = 1;
 
 //add new section
-$('body').on('click', '.addsection', function() {
+$('body').on('click', '.addsection', function() { alert('adad');
 
     //increment
     sectionsCount++;
